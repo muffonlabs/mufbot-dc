@@ -108,7 +108,7 @@ async fn buildlist(ctx: Context<'_>) -> Result<(), Error> {
     let build_queue = ctx.data().build_queue.lock().await;
     for build in build_queue.get_builds() {
         response.push_str(&build);
-        response.push_str("\n");
+        response.push('\n');
     }
     drop(build_queue);
     response.push_str("```");
