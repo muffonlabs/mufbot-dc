@@ -2,55 +2,12 @@ use std::sync::Arc;
 
 use dotenv::dotenv;
 use poise::{framework, serenity_prelude::{self, futures::lock::Mutex}};
-use sqlite::{Connection, State};
 
-struct BuildQueue {
-    conn: Connection,
-}
+mod db;
 
-impl BuildQueue {
-    fn new(db_path: &str) -> Result<Self, Box<dyn std::error::Error>> {
-        let conn = Connection::open(db_path)?;
-        conn.execute(
-            "CREATE TABLE IF NOT EXISTS rollout (
-                version TEXT PRIMARY KEY,
-                status TEXT NOT NULL,
-                approvals INTEGER NOT NULL,
-                rejections INTEGER NOT NULL,
-                created_at TEXT NOT NULL
-            )",
-        )?;
-        Ok(Self { conn })
-    }
-
-    fn queue_build(&self, version: &str) -> Result<(), Box<dyn std::error::Error>> {
-        let mut stmt = self.conn.prepare("INSERT INTO rollout (version, status, approvals, rejections, created_at) VALUES (?, ?, ?, ?, ?)")?;
-        stmt.bind((1, version))?;
-        stmt.bind((2, "pending"))?;
-        stmt.bind((3, 0))?;
-        stmt.bind((4, 0))?;
-        stmt.bind((5, chrono::Local::now().to_string().as_str()))?;
-        stmt.next()?;
-        Ok(())
-    }
-
-    fn get_builds(&self) -> Vec<String> {
-        let mut builds = vec![];
-        let mut stmt = self.conn.prepare("SELECT * FROM rollout").expect("failed to prepare statement");
-        while let Ok(State::Row) = stmt.next() {
-            let version: String = stmt.read(0).expect("failed to read version");
-            let status: String = stmt.read(1).expect("failed to read status");
-            let approvals: i64 = stmt.read(2).expect("failed to read approvals");
-            let rejections: i64 = stmt.read(3).expect("failed to read rejections");
-            let created_at: String = stmt.read(4).expect("failed to read created_at");
-            builds.push(format!("{} {} {} {} {}", version, status, approvals, rejections, created_at));
-        }
-        builds
-    }
-}
 
 struct Data {
-    build_queue: Arc<Mutex<BuildQueue>>,
+    build_queue: Arc<Mutex<db::rollout::BuildQueue>>,
 }
 
 type Error = Box<dyn std::error::Error + Send + Sync>;
@@ -84,7 +41,7 @@ async fn rollout(
 
     // Queue build
     let build_queue = ctx.data().build_queue.lock().await;
-    build_queue.queue_build(&version).expect("failed to queue build");
+    build_queue.queue_rollout(&version).expect("failed to queue build");
     drop(build_queue);
     
     let response = format!("Rollout of version {} started", version);
@@ -119,7 +76,7 @@ async fn buildlist(ctx: Context<'_>) -> Result<(), Error> {
 #[tokio::main]
 async fn main() {
     dotenv().ok();
-    let build_queue = Arc::new(Mutex::new(BuildQueue::new("muffon.db").expect("Failed to create BuildQueue")));
+    let build_queue = Arc::new(Mutex::new(db::rollout::BuildQueue::new("muffon.db").expect("Failed to create BuildQueue")));
     let token = std::env::var("DISCORD_TOKEN").expect("missing DISCORD_TOKEN");
     println!("starting client");
     let intents = serenity_prelude::GatewayIntents::non_privileged();
