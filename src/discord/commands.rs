@@ -3,7 +3,7 @@ pub mod buildlist;
 pub mod rollout;
 
 use poise::serenity_prelude::futures::lock::Mutex;
-use std::{any, sync::Arc};
+use std::{sync::Arc};
 
 pub struct Data {
     pub build_queue: Arc<Mutex<crate::db::rollout::BuildQueue>>,
