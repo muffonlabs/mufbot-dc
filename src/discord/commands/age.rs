@@ -7,7 +7,9 @@ pub async fn age(
     #[description = "Selected user"] user: Option<serenity_prelude::User>,
 ) -> Result<(), crate::discord::commands::Error> {
 
-    let u = user.as_ref().unwrap_or_else(|| ctx.author());
+    let u = user
+        .as_ref()
+        .unwrap_or_else(|| ctx.author());
 
     let response = format!("{}'s account was created at {}", u.name, u.created_at());
 

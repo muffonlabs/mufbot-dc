@@ -1,13 +1,12 @@
-use std::sync::Arc;
+mod db;
+mod discord;
 
 use dotenv::dotenv;
 use poise::{
     framework,
     serenity_prelude::{self, futures::lock::Mutex},
 };
-
-mod db;
-mod discord;
+use std::sync::Arc;
 
 #[tokio::main]
 

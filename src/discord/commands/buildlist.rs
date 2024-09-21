@@ -9,11 +9,21 @@ pub async fn buildlist(
 
     let role_id = std::env::var("ROLLOUT_GROUP_ID").expect("missing ROLLOUT_GROUP_ID");
 
-    let guild = ctx.http().get_guild(guild_id.parse().unwrap()).await?;
+    let guild = ctx
+        .http()
+        .get_guild(guild_id.parse().unwrap())
+        .await?;
 
-    let role = guild.roles.get(&role_id.parse().unwrap()).unwrap();
+    let role = guild
+        .roles
+        .get(&role_id.parse().unwrap())
+        .unwrap();
 
-    if !ctx.author().has_role(ctx.http(), &guild, role).await? {
+    if !ctx
+        .author()
+        .has_role(ctx.http(), &guild, role)
+        .await?
+    {
 
         ctx.say("You don't have permission to use this command")
             .await?;
@@ -25,7 +35,11 @@ pub async fn buildlist(
 
     response.push_str("Version Status Approvals Rejections Created At\n");
 
-    let build_queue = ctx.data().build_queue.lock().await;
+    let build_queue = ctx
+        .data()
+        .build_queue
+        .lock()
+        .await;
 
     for build in build_queue.get_builds() {
 

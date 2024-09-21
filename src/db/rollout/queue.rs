@@ -16,7 +16,12 @@ pub fn default_binds(
 
     stmt.bind((4, 0))?;
 
-    stmt.bind((5, chrono::Local::now().to_string().as_str()))?;
+    stmt.bind((
+        5,
+        chrono::Local::now()
+            .to_string()
+            .as_str(),
+    ))?;
 
     stmt.next()?;
 

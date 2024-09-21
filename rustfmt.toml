@@ -1,2 +1,3 @@
 array_width = 2
 blank_lines_lower_bound = 1
+chain_width = 30
