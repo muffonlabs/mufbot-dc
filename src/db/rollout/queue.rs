@@ -5,11 +5,16 @@ pub const SQL_CMD: &str = "INSERT INTO rollout (version, status, approvals, reje
 pub fn default_binds(
     stmt: &mut Statement<'_>,
     version: &str,
-) -> Result<(), Box<dyn std::error::Error>> {
+) -> Result<
+    (),
+    Box<dyn std::error::Error>,
+> {
 
     stmt.bind((1, version))?;
 
-    // pending at the time of creation because we don't have approvals yet
+    // pending at the time of creation
+    // because we don't have approvals
+    // yet
     stmt.bind((2, "pending"))?;
 
     stmt.bind((3, 0))?;

@@ -9,6 +9,9 @@ pub struct Data {
     pub build_queue: Arc<Mutex<crate::db::rollout::BuildQueue>>,
 }
 
-pub type Error = Box<dyn std::error::Error + Send + Sync>;
+pub type Error = Box<
+    dyn std::error::Error + Send + Sync,
+>;
 
-pub type Context<'a> = poise::Context<'a, Data, Error>;
+pub type Context<'a> =
+    poise::Context<'a, Data, Error>;

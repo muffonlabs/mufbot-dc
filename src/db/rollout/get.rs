@@ -1,20 +1,26 @@
 use sqlite::{State, Statement};
 
-pub const SQL_CMD: &str = "SELECT * FROM rollout";
+pub const SQL_CMD: &str =
+    "SELECT * FROM rollout";
 
-pub fn get_rollouts(stmt: &mut Statement<'_>) -> Vec<String> {
+pub fn get_rollouts(
+    stmt: &mut Statement<'_>,
+) -> Vec<String> {
 
     let mut rollouts = vec![];
 
-    while let Ok(State::Row) = stmt.next() {
+    while let Ok(State::Row) =
+        stmt.next()
+    {
 
         let version: String = stmt
             .read(0)
             .expect("failed to read version");
 
-        let status: String = stmt
-            .read(1)
-            .expect("failed to read status");
+        let status: String =
+            stmt.read(1).expect(
+                "failed to read status",
+            );
 
         let approvals: i64 = stmt
             .read(2)
@@ -30,7 +36,11 @@ pub fn get_rollouts(stmt: &mut Statement<'_>) -> Vec<String> {
 
         rollouts.push(format!(
             "{} {} {} {} {}",
-            version, status, approvals, rejections, created_at
+            version,
+            status,
+            approvals,
+            rejections,
+            created_at
         ));
     }
 
