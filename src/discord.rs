@@ -1,1 +1,1 @@
-pub mod mufbeta;
+pub mod commands;
