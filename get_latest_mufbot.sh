@@ -21,7 +21,7 @@ spin() {
 run_with_spinner() {
     local command="$1"
     local message="$2"
-    echo -n "$message"
+    echo -en "$message"
     eval "$command" &
     spin $!
     wait $!
