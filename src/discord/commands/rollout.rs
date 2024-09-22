@@ -1,3 +1,5 @@
+use poise::serenity_prelude;
+
 #[poise::command(
     slash_command,
     prefix_command
@@ -63,12 +65,98 @@ pub async fn create_rollout(
 
     drop(build_queue);
 
-    let response = format!(
-        "Rollout of version {} started",
-        version
-    );
+    let response = {
 
-    ctx.say(response).await?;
+        let embed = serenity_prelude::CreateEmbed::default()
+            .title("Rollout Queued")
+            .description(format!("Rollout of version {} has been queued", version));
+
+        let components = vec![
+            serenity_prelude::CreateActionRow::Buttons(
+                vec![
+                    serenity_prelude::CreateButton::new("approve")
+                        .style(serenity_prelude::ButtonStyle::Primary)
+                        .label("Approve")
+                        .custom_id("approve"),
+                    serenity_prelude::CreateButton::new("reject")
+                        .style(serenity_prelude::ButtonStyle::Danger)
+                        .label("Reject")
+                        .custom_id("reject")]
+        )];
+
+        poise::CreateReply::default()
+            .embed(embed)
+            .components(components)
+    };
+
+    ctx.send(response).await?;
+
+    while let Some(mci) = serenity_prelude::ComponentInteractionCollector::new(ctx.serenity_context())
+        .timeout(std::time::Duration::from_secs(120))
+        .filter(move |mci| mci.data.custom_id == "approve" || mci.data.custom_id == "reject")
+        .await
+    {
+        if &mci.data.custom_id == "approve" {
+            // let mut build_queue = ctx
+            //     .data()
+            //     .build_queue
+            //     .lock()
+            //     .await;
+
+            // build_queue
+            //     .approve_rollout(&version)
+            //     .expect(
+            //         "failed to approve rollout",
+            //     );
+
+            // drop(build_queue);
+
+            let embed_author = serenity_prelude::CreateEmbedAuthor::new(&mci.user.name)
+                .icon_url(&mci.user.avatar_url().unwrap_or_default())
+                .url(&mci.user.avatar_url().unwrap_or_default());
+
+            let embed = serenity_prelude::CreateEmbed::default()
+                .title("Rollout Approved")
+                .description(format!("Rollout of version {} has been approved by {}", version, &mci.user.name))
+                .author(embed_author)
+                .color(0x00FF00);
+
+            let reply = poise::CreateReply::default()
+                .embed(embed);
+
+            ctx.send(reply).await?;
+        } else {
+            // let mut build_queue = ctx
+            //     .data()
+            //     .build_queue
+            //     .lock()
+            //     .await;
+
+            // build_queue
+            //     .reject_rollout(&version)
+            //     .expect(
+            //         "failed to reject rollout",
+            //     );
+
+            // drop(build_queue);
+
+            let embed_author = serenity_prelude::CreateEmbedAuthor::new(&mci.user.name)
+                .icon_url(&mci.user.avatar_url().unwrap_or_default())
+                .url(&mci.user.avatar_url().unwrap_or_default());
+
+            let embed = serenity_prelude::CreateEmbed::default()
+                .title("Rollout Rejected")
+                .description(format!("Rollout of version {} has been rejected by {}. Cancelling rollout", version, &mci.user.name))
+                .author(embed_author)
+                .color(0xFF0000);
+
+            let reply = poise::CreateReply::default()
+                .embed(embed);
+
+            ctx.send(reply).await?;
+        }
+        mci.create_response(ctx, serenity_prelude::CreateInteractionResponse::Acknowledge).await?;
+    }
 
     Ok(())
 }
