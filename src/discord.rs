@@ -34,6 +34,8 @@ pub async fn initiate_bot() {
                 commands::age::age(),
                 commands::rollout::create_rollout(),
                 commands::buildlist::buildlist(),
+                commands::shutdown::shutdown(),
+                commands::restart::restart(),
             ],
             ..Default::default()
         })

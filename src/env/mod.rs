@@ -32,3 +32,11 @@ pub static ROLE_ID: Lazy<String> =
             "missing ROLLOUT_GROUP_ID",
         )
     });
+
+pub static SERVICE_NAME: Lazy<String> =
+    Lazy::new(|| {
+
+        env::var("SERVICE_NAME").expect(
+            "missing SERVICE_NAME",
+        )
+    });
