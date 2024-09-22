@@ -4,7 +4,6 @@ GREEN='\033[0;32m'
 NC='\033[0m'
 RED='\033[0;31m'
 
-
 spin() {
     local pid=$1
     local delay=0.1
@@ -41,6 +40,28 @@ SERVICE_FILE="/etc/systemd/system/$SERVICE_NAME.service"
 URL="https://api.github.com/repos/muffonlabs/mufbot-dc/releases/latest"
 LATEST=$(curl -s $URL | grep "browser_download_url" | cut -d '"' -f 4)
 
+# check if the service name is set
+if [ -z "$SERVICE_NAME" ]; then
+    echo -e "${RED}Please set the SERVICE_NAME in the .env file${NC}"
+    exit
+fi
+
+# check if the latest release is available
+if [ -z "$LATEST" ]; then
+    echo -e "${RED}Could not get the latest release${NC}"
+    exit
+fi
+
+
+if [ -f "mufbot-dc" ]; then
+    # delete the old version
+    run_with_spinner "rm -rf mufbot-dc" "$GREEN[+] Deleting the old version of mufbot...$NC"
+fi
+
+# install dependencies
+run_with_spinner "apt update && apt install -y wget" "$GREEN[+] Installing dependencies...$NC"
+
+# download the latest release
 run_with_spinner "wget $LATEST && chmod +x mufbot-dc" "$GREEN[+] Downloading the latest release of mufbot...$NC"
 
 # stop the service
