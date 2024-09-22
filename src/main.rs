@@ -11,17 +11,34 @@ async fn main() {
 
     dotenv().ok();
 
-    let update = util::autoupdate::check_update().await;
+    let update =
+        util::autoupdate::check_update(
+        )
+        .await;
+
     if update.is_err() {
+
         println!("Failed to check for updates: {:?}", update.err().unwrap());
     } else if update.unwrap() {
-        println!("Attempting to update...");
-        let update = util::autoupdate::update().await;
+
+        println!(
+            "Attempting to update..."
+        );
+
+        let update =
+            util::autoupdate::update()
+                .await;
+
         if update.is_err() {
+
             println!("Failed to update: {:?}", update.err().unwrap());
         } else {
-            println!("Update successful");
+
+            println!(
+                "Update successful"
+            );
         }
+
         return;
     }
 
