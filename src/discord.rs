@@ -36,12 +36,14 @@ pub async fn initiate_bot() {
                 commands::buildlist::buildlist(),
                 commands::shutdown::shutdown(),
                 commands::restart::restart(),
+                commands::version::version(),
             ],
             ..Default::default()
         })
         .setup(|ctx, _ready, framework| {
 
             Box::pin(async move {
+                
                 poise::builtins::register_globally(ctx, &framework.options().commands).await?;
 
                 let channel_id = serenity_prelude::ChannelId::new(crate::env::BOTS_CHANNEL_ID.parse().unwrap());

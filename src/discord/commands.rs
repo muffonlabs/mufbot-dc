@@ -3,6 +3,7 @@ pub mod buildlist;
 pub mod restart;
 pub mod rollout;
 pub mod shutdown;
+pub mod version;
 
 use poise::serenity_prelude::futures::lock::Mutex;
 use std::sync::Arc;
