@@ -40,3 +40,12 @@ pub static SERVICE_NAME: Lazy<String> =
             "missing SERVICE_NAME",
         )
     });
+
+pub static BOTS_CHANNEL_ID: Lazy<
+    String,
+> = Lazy::new(|| {
+
+    env::var("BOTS_CHANNEL_ID").expect(
+        "missing BOTS_CHANNEL_ID",
+    )
+});

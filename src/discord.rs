@@ -42,8 +42,10 @@ pub async fn initiate_bot() {
         .setup(|ctx, _ready, framework| {
 
             Box::pin(async move {
-
                 poise::builtins::register_globally(ctx, &framework.options().commands).await?;
+
+                let channel_id = serenity_prelude::ChannelId::new(crate::env::BOTS_CHANNEL_ID.parse().unwrap());
+                channel_id.say(&ctx.http, "mufbot is online!").await.unwrap();
 
                 Ok(commands::Data {
                     build_queue: build_queue.clone(),
