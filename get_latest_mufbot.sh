@@ -59,10 +59,12 @@ if [ -f "mufbot-dc" ]; then
 fi
 
 # install dependencies
-run_with_spinner "apt update && apt install -y wget" "${GREEN}[+] Installing dependencies...${NC}"
+if ! command -v wget &> /dev/null; then
+    run_with_spinner "apt-get update && apt-get install -y wget > /dev/null" "${GREEN}[+] Installing wget...${NC}"
+fi
 
 # download the latest release
-run_with_spinner "wget $LATEST && chmod +x mufbot-dc" "${GREEN}[+] Downloading the latest release of mufbot...${NC}"
+run_with_spinner "wget $LATEST > /dev/null && chmod +x mufbot-dc" "${GREEN}[+] Downloading the latest release of mufbot...${NC}"
 
 # stop the service
 if [ -f $SERVICE_FILE ]; then
@@ -77,7 +79,7 @@ chmod +x mufbot-dc
 
 # create the service file
 run_with_spinner "echo '[Unit]
-Description=mufbot Discord Client
+Description=mufbot Discord Bot
 After=multi-user.target
 [Service]
 Type=simple
