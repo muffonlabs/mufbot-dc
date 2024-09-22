@@ -25,7 +25,7 @@ run_with_spinner() {
     eval "$command" &
     spin $!
     wait $!
-    echo -e "$GREEN DONE$NC"
+    echo -e "${GREEN} DONE${NC}"
 }
 
 # check if the script is run as root
@@ -55,25 +55,25 @@ fi
 
 if [ -f "mufbot-dc" ]; then
     # delete the old version
-    run_with_spinner "rm -rf mufbot-dc" "$GREEN[+] Deleting the old version of mufbot...$NC"
+    run_with_spinner "rm -rf mufbot-dc" "${GREEN}[+] Deleting the old version of mufbot...${NC}"
 fi
 
 # install dependencies
-run_with_spinner "apt update && apt install -y wget" "$GREEN[+] Installing dependencies...$NC"
+run_with_spinner "apt update && apt install -y wget" "${GREEN}[+] Installing dependencies...${NC}"
 
 # download the latest release
-run_with_spinner "wget $LATEST && chmod +x mufbot-dc" "$GREEN[+] Downloading the latest release of mufbot...$NC"
+run_with_spinner "wget $LATEST && chmod +x mufbot-dc" "${GREEN}[+] Downloading the latest release of mufbot...${NC}"
 
 # stop the service
 if [ -f $SERVICE_FILE ]; then
-    run_with_spinner "systemctl stop $SERVICE_NAME && rm $SERVICE_FILE" "$GREEN[+] Stopping the service...$NC"
+    run_with_spinner "systemctl stop $SERVICE_NAME && rm $SERVICE_FILE" "${GREEN}[+] Stopping the service...${NC}"
 fi
 
 # create start script
 run_with_spinner "mkdir -p /root/.scripts && echo '#!/bin/bash
 cd ~/mufbot-dc
 chmod +x mufbot-dc
-./mufbot-dc' > $START_SCRIPT && chmod +x $START_SCRIPT" "$GREEN[+] Creating the start script...$NC"
+./mufbot-dc' > $START_SCRIPT && chmod +x $START_SCRIPT" "${GREEN}[+] Creating the start script...${NC}"
 
 # create the service file
 run_with_spinner "echo '[Unit]
@@ -84,9 +84,9 @@ Type=simple
 ExecStart=/bin/bash $START_SCRIPT
 Restart=on-failure
 [Install]
-WantedBy=multi-user.target' > $SERVICE_FILE" "$GREEN[+] Creating the service file...$NC"
+WantedBy=multi-user.target' > $SERVICE_FILE" "${GREEN}[+] Creating the service file...${NC}"
 
 # start the service
-run_with_spinner "systemctl daemon-reload && systemctl enable $SERVICE_NAME && systemctl start $SERVICE_NAME" "$GREEN[+] Starting the service...$NC"
+run_with_spinner "systemctl daemon-reload && systemctl enable $SERVICE_NAME && systemctl start $SERVICE_NAME" "${GREEN}[+] Starting the service...${NC}"
 
 echo -e "${GREEN}mufbot has been installed successfully!${NC}"
