@@ -37,7 +37,7 @@ START_SCRIPT="/root/.scripts/mufbot-start.sh"
 SERVICE_NAME=$(grep SERVICE_NAME .env | cut -d '=' -f 2)
 SERVICE_FILE="/etc/systemd/system/$SERVICE_NAME.service"
 URL="https://api.github.com/repos/muffonlabs/mufbot-dc/releases/latest"
-LATEST=$(curl -s $url | grep "browser_download_url" | cut -d '"' -f 4)
+LATEST=$(curl -s $URL | grep "browser_download_url" | cut -d '"' -f 4)
 
 echo -n "$GREEN[+] Downloading the latest release of MUFbot...$NC"
 startspin
