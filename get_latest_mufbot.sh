@@ -60,11 +60,11 @@ fi
 
 # install dependencies
 if ! command -v wget &> /dev/null; then
-    run_with_spinner "apt-get update && apt-get install -y wget > /dev/null" "${GREEN}[+] Installing wget...${NC}"
+    run_with_spinner "apt-get -qq update && apt-get -qq install -y wget" "${GREEN}[+] Installing wget...${NC}"
 fi
 
 # download the latest release
-run_with_spinner "wget $LATEST > /dev/null && chmod +x mufbot-dc" "${GREEN}[+] Downloading the latest release of mufbot...${NC}"
+run_with_spinner "wget -q $LATEST && chmod +x mufbot-dc" "${GREEN}[+] Downloading the latest release of mufbot...${NC}"
 
 # stop the service
 if [ -f $SERVICE_FILE ]; then
