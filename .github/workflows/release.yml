@@ -17,5 +17,5 @@ jobs:
         - name: Compile and release
           uses: taiki-e/upload-rust-binary-action@v1
           with:
-            bin: ...
+            bin: mufbot-dc
             token: ${{ secrets.GITHUB_TOKEN }}
