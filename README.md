@@ -1,4 +1,4 @@
-Introducing, mufBot.
+# Introducing, mufBot.
 
 Developed and maintained by [muffonlabs](https://github.com/muffonlabs), mufbot is an automation bot designed to streamline processes within the [mufbeta](https://github.com/muffonlabs/mufbeta) ecosystem. As part of our beta rollout pipeline, mufbot aims to enhance efficiency and productivity.
 
@@ -44,3 +44,8 @@ mufbot will play a pivotal role in simplifying daily tasks, fostering collaborat
 - Extend mufbot from discord only to discord + github, with seamless integration between both.
 - Synchronize issues between discord (forum posts) and github (issues).
 
+# Setup
+To setup the bot:
+1. Clone the repository
+2. Create a `.env` file in the root of the repository and add the appropriate values.
+3. Either use the prebuilt binary with the `./scripts/get_latest_mufbot.sh` script or build the bot yourself.
