@@ -17,11 +17,15 @@ mufbot will play a pivotal role in simplifying daily tasks, fostering collaborat
     <th>Role</th>
   </tr>
   <tr>
-    <td><a href="https://github.com/gamersi">gamersi</a></td>
+    <td>
+      @gamersi
+    </td>
     <td>Developer</td>
   </tr>
   <tr>
-    <td><a href="https://github.com/xyloflake">xyloflake</a></td>
+    <td>
+      @xyloflake
+    </td>
     <td>Project Supervisor/Manager</td>
   </tr>
 </table>
