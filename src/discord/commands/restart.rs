@@ -4,10 +4,10 @@
 )]
 
 pub async fn restart(
-    ctx: crate::discord::commands::Context<'_>,
+    ctx: crate::discord::commands::Context<'_>
 ) -> Result<
     (),
-    crate::discord::commands::Error,
+    crate::discord::commands::Error
 > {
 
     let guild = ctx
@@ -16,7 +16,7 @@ pub async fn restart(
             crate::env::GUILD_ID
                 .as_str()
                 .parse()
-                .unwrap(),
+                .unwrap()
         )
         .await?;
 
@@ -26,7 +26,7 @@ pub async fn restart(
             &crate::env::ROLE_ID
                 .as_str()
                 .parse()
-                .unwrap(),
+                .unwrap()
         )
         .unwrap();
 
@@ -35,7 +35,7 @@ pub async fn restart(
         .has_role(
             ctx.http(),
             &guild,
-            role,
+            role
         )
         .await?
     {
@@ -51,19 +51,19 @@ pub async fn restart(
 
     let cmd =
         std::process::Command::new(
-            "systemctl",
+            "systemctl"
         )
         .arg("restart")
         .arg(
             crate::env::SERVICE_NAME
-                .as_str(),
+                .as_str()
         )
         .output()
         .expect("failed to restart");
 
     let output =
         String::from_utf8_lossy(
-            &cmd.stdout,
+            &cmd.stdout
         );
 
     ctx.say(format!(

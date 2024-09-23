@@ -1,10 +1,10 @@
 use sqlite::Connection;
 
 pub fn create(
-    db_path: &str,
+    db_path: &str
 ) -> Result<
     Connection,
-    Box<dyn std::error::Error>,
+    Box<dyn std::error::Error>
 > {
 
     let conn =

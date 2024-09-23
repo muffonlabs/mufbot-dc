@@ -63,7 +63,7 @@ pub async fn update(
         .get(download_url)
         .header(
             "User-Agent",
-            "mufbot-dc",
+            "mufbot-dc"
         ) // Required by GitHub API, else it will reject the request
         .send()
         .await?;
@@ -72,7 +72,7 @@ pub async fn update(
         response.bytes().await?;
 
     let path = std::path::Path::new(
-        "mufbot-dc",
+        "mufbot-dc"
     );
 
     let rm_res =

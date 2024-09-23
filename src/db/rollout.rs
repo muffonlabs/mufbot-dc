@@ -5,15 +5,15 @@ mod new;
 mod queue;
 
 pub struct BuildQueue {
-    conn: Connection,
+    conn: Connection
 }
 
 impl BuildQueue {
     pub fn new(
-        db_path: &str,
+        db_path: &str
     ) -> Result<
         Self,
-        Box<dyn std::error::Error>,
+        Box<dyn std::error::Error>
     > {
 
         let conn =
@@ -26,10 +26,10 @@ impl BuildQueue {
     // into the queue
     pub fn queue_rollout(
         &self,
-        version: &str,
+        version: &str
     ) -> Result<
         (),
-        Box<dyn std::error::Error>,
+        Box<dyn std::error::Error>
     > {
 
         let mut stmt = self
@@ -37,12 +37,12 @@ impl BuildQueue {
             .prepare(queue::SQL_CMD)?;
 
         queue::default_binds(
-            &mut stmt, version,
+            &mut stmt, version
         )
     }
 
     pub fn get_builds(
-        &self,
+        &self
     ) -> Vec<String> {
 
         let mut stmt = self

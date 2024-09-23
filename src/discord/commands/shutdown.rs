@@ -4,10 +4,10 @@
 )]
 
 pub async fn shutdown(
-    ctx: crate::discord::commands::Context<'_>,
+    ctx: crate::discord::commands::Context<'_>
 ) -> Result<
     (),
-    crate::discord::commands::Error,
+    crate::discord::commands::Error
 > {
 
     let guild = ctx
@@ -16,7 +16,7 @@ pub async fn shutdown(
             crate::env::GUILD_ID
                 .as_str()
                 .parse()
-                .unwrap(),
+                .unwrap()
         )
         .await?;
 
@@ -26,7 +26,7 @@ pub async fn shutdown(
             &crate::env::ROLE_ID
                 .as_str()
                 .parse()
-                .unwrap(),
+                .unwrap()
         )
         .unwrap();
 
@@ -35,7 +35,7 @@ pub async fn shutdown(
         .has_role(
             ctx.http(),
             &guild,
-            role,
+            role
         )
         .await?
     {

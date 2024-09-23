@@ -1,5 +1,5 @@
 use poise::{
-    serenity_prelude, CreateReply,
+    serenity_prelude, CreateReply
 };
 
 #[poise::command(
@@ -8,10 +8,10 @@ use poise::{
 )]
 
 pub async fn version(
-    ctx: crate::discord::commands::Context<'_>,
+    ctx: crate::discord::commands::Context<'_>
 ) -> Result<
     (),
-    crate::discord::commands::Error,
+    crate::discord::commands::Error
 > {
 
     let version =

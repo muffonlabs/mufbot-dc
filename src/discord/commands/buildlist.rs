@@ -4,27 +4,27 @@
 )]
 
 pub async fn buildlist(
-    ctx: crate::discord::commands::Context<'_>,
+    ctx: crate::discord::commands::Context<'_>
 ) -> Result<
     (),
-    crate::discord::commands::Error,
+    crate::discord::commands::Error
 > {
 
     // Auth check
     let guild_id = std::env::var(
-        "MUFFON_GUILD_ID",
+        "MUFFON_GUILD_ID"
     )
     .expect("missing MUFFON_GUILD_ID");
 
     let role_id = std::env::var(
-        "ROLLOUT_GROUP_ID",
+        "ROLLOUT_GROUP_ID"
     )
     .expect("missing ROLLOUT_GROUP_ID");
 
     let guild = ctx
         .http()
         .get_guild(
-            guild_id.parse().unwrap(),
+            guild_id.parse().unwrap()
         )
         .await?;
 
@@ -38,7 +38,7 @@ pub async fn buildlist(
         .has_role(
             ctx.http(),
             &guild,
-            role,
+            role
         )
         .await?
     {

@@ -8,10 +8,10 @@ use poise::serenity_prelude;
 pub async fn create_rollout(
     ctx: crate::discord::commands::Context<'_>,
     #[description = "Version to roll out"]
-    version: String,
+    version: String
 ) -> Result<
     (),
-    crate::discord::commands::Error,
+    crate::discord::commands::Error
 > {
 
     let guild = ctx
@@ -20,7 +20,7 @@ pub async fn create_rollout(
             crate::env::GUILD_ID
                 .as_str()
                 .parse()
-                .unwrap(),
+                .unwrap()
         )
         .await?;
 
@@ -30,7 +30,7 @@ pub async fn create_rollout(
             &crate::env::ROLE_ID
                 .as_str()
                 .parse()
-                .unwrap(),
+                .unwrap()
         )
         .unwrap();
 
@@ -39,7 +39,7 @@ pub async fn create_rollout(
         .has_role(
             ctx.http(),
             &guild,
-            role,
+            role
         )
         .await?
     {
@@ -60,7 +60,7 @@ pub async fn create_rollout(
     build_queue
         .queue_rollout(&version)
         .expect(
-            "failed to queue build",
+            "failed to queue build"
         );
 
     drop(build_queue);

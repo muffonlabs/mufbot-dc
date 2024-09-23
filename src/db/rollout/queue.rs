@@ -4,10 +4,10 @@ pub const SQL_CMD: &str = "INSERT INTO rollout (version, status, approvals, reje
 
 pub fn default_binds(
     stmt: &mut Statement<'_>,
-    version: &str,
+    version: &str
 ) -> Result<
     (),
-    Box<dyn std::error::Error>,
+    Box<dyn std::error::Error>
 > {
 
     stmt.bind((1, version))?;
@@ -25,7 +25,7 @@ pub fn default_binds(
         5,
         chrono::Local::now()
             .to_string()
-            .as_str(),
+            .as_str()
     ))?;
 
     stmt.next()?;

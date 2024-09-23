@@ -10,7 +10,7 @@ pub static DISCORD_TOKEN: Lazy<String> =
 
         env::var("DISCORD_TOKEN")
             .expect(
-                "missing DISCORD_TOKEN",
+                "missing DISCORD_TOKEN"
             )
     });
 
@@ -19,7 +19,7 @@ pub static GUILD_ID: Lazy<String> =
 
         env::var("MUFFON_GUILD_ID")
             .expect(
-            "missing MUFFON_GUILD_ID",
+            "missing MUFFON_GUILD_ID"
         )
     });
 
@@ -29,7 +29,7 @@ pub static ROLE_ID: Lazy<String> =
 
         env::var("ROLLOUT_GROUP_ID")
             .expect(
-            "missing ROLLOUT_GROUP_ID",
+            "missing ROLLOUT_GROUP_ID"
         )
     });
 
@@ -37,15 +37,15 @@ pub static SERVICE_NAME: Lazy<String> =
     Lazy::new(|| {
 
         env::var("SERVICE_NAME").expect(
-            "missing SERVICE_NAME",
+            "missing SERVICE_NAME"
         )
     });
 
 pub static BOTS_CHANNEL_ID: Lazy<
-    String,
+    String
 > = Lazy::new(|| {
 
     env::var("BOTS_CHANNEL_ID").expect(
-        "missing BOTS_CHANNEL_ID",
+        "missing BOTS_CHANNEL_ID"
     )
 });

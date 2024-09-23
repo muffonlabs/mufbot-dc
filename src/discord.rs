@@ -3,15 +3,15 @@ pub mod commands;
 use poise::{
     framework,
     serenity_prelude::{
-        self, futures::lock::Mutex,
-    },
+        self, futures::lock::Mutex
+    }
 };
 use std::sync::Arc;
 
 fn get_build_queue() -> Arc<
     Mutex<
-        crate::db::rollout::BuildQueue,
-    >,
+        crate::db::rollout::BuildQueue
+    >
 > {
 
     Arc::new(Mutex::new(
@@ -43,8 +43,8 @@ pub async fn initiate_bot() {
         .setup(|ctx, _ready, framework| {
 
             Box::pin(async move {
-                
-                poise::builtins::register_globally(ctx, &framework.options().commands).await?;
+
+                poise::builtins::register_globally(ctx,&framework.options().commands).await?;
 
                 let channel_id = serenity_prelude::ChannelId::new(crate::env::BOTS_CHANNEL_ID.parse().unwrap());
                 channel_id.say(&ctx.http, "mufbot is online!").await.unwrap();
@@ -65,7 +65,7 @@ pub async fn initiate_bot() {
         .start()
         .await
         .expect(
-            "failed to start client",
+            "failed to start client"
         );
 
     println!("client started");

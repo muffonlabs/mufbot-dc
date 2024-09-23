@@ -4,7 +4,7 @@ pub const SQL_CMD: &str =
     "SELECT * FROM rollout";
 
 pub fn get_rollouts(
-    stmt: &mut Statement<'_>,
+    stmt: &mut Statement<'_>
 ) -> Vec<String> {
 
     let mut rollouts = vec![];
@@ -19,7 +19,7 @@ pub fn get_rollouts(
 
         let status: String =
             stmt.read(1).expect(
-                "failed to read status",
+                "failed to read status"
             );
 
         let approvals: i64 = stmt
