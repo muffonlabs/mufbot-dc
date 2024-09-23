@@ -4,7 +4,7 @@ Developed and maintained by [muffonlabs](https://github.com/muffonlabs), mufbot 
 
 # Primary Objectives
 - Automate key utilities for the muffon development team.
-- Interact with our Discord community to develop tailored tools and utilities.
+- Interact with our Discord community to perform tasks that might be helpful.
 
 # Vision
 mufbot will play a pivotal role in simplifying daily tasks, fostering collaboration, and enriching the user experience within our community.
