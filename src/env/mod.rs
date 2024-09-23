@@ -49,3 +49,21 @@ pub static BOTS_CHANNEL_ID: Lazy<
         "missing BOTS_CHANNEL_ID"
     )
 });
+
+pub static GITHUB_TOKEN: Lazy<String> =
+    Lazy::new(|| {
+
+        env::var("GITHUB_TOKEN").expect(
+            "missing GITHUB_TOKEN"
+        )
+    });
+
+pub static GITHUB_WORKFLOW_URL: Lazy<
+    String
+> = Lazy::new(|| {
+
+    env::var("GITHUB_WORKFLOW_URL")
+        .expect(
+        "missing GITHUB_WORKFLOW_URL"
+    )
+});

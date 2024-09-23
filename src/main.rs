@@ -1,6 +1,7 @@
 mod db;
 mod discord;
 mod env;
+mod github;
 mod util;
 
 use dotenv::dotenv;
