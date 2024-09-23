@@ -1,6 +1,13 @@
-# mufbot
-This is a discord bot that I made for the muffon server. It is a bot that can start builds on github actions.
-It is written in rust and uses the [poise](https://github.com/serenity-rs/poise) library for the discord interaction.
+Introducing, mufBot.
+
+Developed and maintained by [muffonlabs](https://github.com/muffonlabs), mufbot is an automation bot designed to streamline processes within the [mufbeta](https://github.com/muffonlabs/mufbeta) ecosystem. As part of our beta rollout pipeline, mufbot aims to enhance efficiency and productivity.
+
+# Primary Objectives
+- Automate key utilities for the muffon development team.
+- Interact with our Discord community to develop tailored tools and utilities.
+
+# Vision
+mufbot will play a pivotal role in simplifying daily tasks, fostering collaboration, and enriching the user experience within our community.
 
 # Project Details
 
