@@ -11,6 +11,7 @@ mufbot will play a pivotal role in simplifying daily tasks, fostering collaborat
 
 # Project Details
 
+## Team
 <table>
   <tr>
     <th>Member</th>
@@ -33,3 +34,13 @@ mufbot will play a pivotal role in simplifying daily tasks, fostering collaborat
     <td>Project Supervisor/Manager</td>
   </tr>
 </table>
+
+## Tech stack
+- Programming Language: Rust 🦀 (nightly)
+- Framework: [Poise](https://github.com/serenity-rs/poise)
+
+# Future goals
+
+- Extend mufbot from discord only to discord + github, with seamless integration between both.
+- Synchronize issues between discord (forum posts) and github (issues).
+
