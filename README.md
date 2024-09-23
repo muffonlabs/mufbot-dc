@@ -10,11 +10,11 @@ It is written in rust and uses the [poise](https://github.com/serenity-rs/poise)
     <th>Role</th>
   </tr>
   <tr>
-    <td>Gamersi</td>
+    <td>[gamersi](https://github.com/gamersi)</td>
     <td>Developer</td>
   </tr>
   <tr>
-    <td>Xyloflake</td>
+    <td>[xyloflake](https://github.com/xyloflake)</td>
     <td>Project Supervisor/Manager</td>
   </tr>
 </table>
