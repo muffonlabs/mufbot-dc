@@ -43,9 +43,9 @@ mufbot will play a pivotal role in simplifying daily tasks, fostering collaborat
 
 # Future goals
 
-- Extend mufbot from discord only to discord + github, with seamless integration between both.
-- Synchronize issues between discord (forum posts) and github (issues).
-- Play audio streams right into discord's voice channels by utilizing muffon's api.  Idea is not considered complete and development would require other chores to be completed first. Work may start from next year.This idea suggests that mufbot can be used in the future as a music bot for all discord servers.
+- **Extend mufbot from discord only to discord + github**, with seamless integration between both.
+- **Synchronize issues between discord (forum posts) and github (issues).**
+- **Play audio streams right into discord's voice channels by utilizing muffon's api.** Idea is not considered complete and development would require other chores to be completed first. ***Work may start from next year.*** This idea suggests that mufbot can be used in the future as a music bot for all discord servers.
 
 # Setup
 To setup the bot:
