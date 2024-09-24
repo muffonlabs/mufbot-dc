@@ -23,7 +23,7 @@ mufbot will play a pivotal role in simplifying daily tasks, fostering collaborat
         gamersi
       </a>
     </td>
-    <td>Developer</td>
+    <td>Development</td>
   </tr>
   <tr>
     <td>
@@ -31,7 +31,7 @@ mufbot will play a pivotal role in simplifying daily tasks, fostering collaborat
         xyloflake
       </a>
     </td>
-    <td>Project Supervisor/Manager</td>
+    <td>Project Supervision/Management</td>
   </tr>
 </table>
 
