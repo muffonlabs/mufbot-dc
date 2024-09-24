@@ -1,4 +1,4 @@
-# Introducing, mufBot.
+# Introducing, mufbot.
 
 Developed and maintained by [muffonlabs](https://github.com/muffonlabs), mufbot is an automation bot designed to streamline processes within the [mufbeta](https://github.com/muffonlabs/mufbeta) ecosystem. As part of our beta rollout pipeline, mufbot aims to enhance efficiency and productivity.
 
