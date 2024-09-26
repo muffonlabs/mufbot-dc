@@ -78,7 +78,7 @@ pub async fn create_rollout(
             serenity_prelude::CreateActionRow::Buttons(
                 vec![
                     serenity_prelude::CreateButton::new("approve")
-                        .style(serenity_prelude::ButtonStyle::Primary)
+                        .style(serenity_prelude::ButtonStyle::Success)
                         .label("Approve")
                         .custom_id("approve"),
                     serenity_prelude::CreateButton::new("reject")
@@ -136,9 +136,9 @@ pub async fn create_rollout(
 
             let extra = if approval {
                 let _ = crate::github::start_rollout(&version).await;
-                "The rollout has been started."
+                ". The rollout has been started."
             } else {
-                "The rollout has not been started because it has not been approved by enough people."
+                ". The rollout has not been started because it has not been approved by enough people."
             };
 
             let embed_author = serenity_prelude::CreateEmbedAuthor::new(&mci.user.name)
