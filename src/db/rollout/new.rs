@@ -14,8 +14,9 @@ pub fn create(
         "CREATE TABLE IF NOT EXISTS rollout (
             version TEXT PRIMARY KEY,
             status TEXT NOT NULL,
-            approvals INTEGER NOT NULL,
-            rejections INTEGER NOT NULL,
+            approvals TEXT NOT NULL,
+            rejections TEXT NOT NULL,
+            creator INTEGER NOT NULL,
             created_at TEXT NOT NULL
         )",
     )?;
