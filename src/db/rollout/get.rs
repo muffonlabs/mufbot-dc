@@ -28,6 +28,7 @@ pub fn get_rollouts(
             .read(2)
             .unwrap_or("0".to_string())
             .split(",")
+            .filter(|x| !x.is_empty())
             .map(|x| {
 
                 x.parse().unwrap_or(0)
@@ -38,6 +39,7 @@ pub fn get_rollouts(
             .read(3)
             .unwrap_or("0".to_string())
             .split(",")
+            .filter(|x| !x.is_empty())
             .map(|x| {
 
                 x.parse().unwrap_or(0)
@@ -91,6 +93,7 @@ pub fn get_rollout(
                         "0".to_string()
                     )
                     .split(",")
+                    .filter(|x| !x.is_empty())
                     .map(|x| {
 
                         x.parse()
@@ -106,6 +109,7 @@ pub fn get_rollout(
                         "0".to_string()
                     )
                     .split(",")
+                    .filter(|x| !x.is_empty())
                     .map(|x| {
 
                         x.parse()
