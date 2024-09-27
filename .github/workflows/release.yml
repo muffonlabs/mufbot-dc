@@ -1,6 +1,7 @@
 # .github/workflows/release.yml
 
 on:
+    workflow-dispatch:
     release:
       types: [created]
 
