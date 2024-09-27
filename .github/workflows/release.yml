@@ -1,40 +1,43 @@
 on:
-  workflow_dispatch:
-  release:
-    types: [created]
+    workflow_dispatch:
+    release:
+      types: [created]
 
-permissions:
-  write-all
+permissions: write-all
 
 jobs:
-  release:
-    name: Release ${{ matrix.target }}
-    runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-    steps:
-      - uses: actions/checkout@v3
-      - name: Install latest rust toolchain
-        uses: actions-rs/toolchain@v1
-        with:
-          toolchain: stable
-          default: true
-          override: true
-      - name: Cache cargo
-        uses: actions/cache@v3
-        with:
-          path: |
-            ~/.cargo/bin/
-            ~/.cargo/registry/index/
-            ~/.cargo/registry/cache/
-            ~/.cargo/git/db/
-            target/
-          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
-      - name: Build
-        run: cargo build --all --release && strip target/release/mufbot-dc
-      - name: Release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          files: target/release/mufbot-dc
+    release:
+      name: release ${{ matrix.target }}
+      runs-on: ubuntu-latest
+      strategy:
+        fail-fast: false
+      steps:
+        - uses: actions/checkout@master
+
+        - name: Install latest rust toolchain
+          uses: actions-rs/toolchain@v1
+          with:
+            toolchain: stable
+            default: true
+            override: true
+
+        - name: Cache cargo
+          uses: actions/cache@v4
+          with:
+            path: |
+              ~/.cargo/bin/
+              ~/.cargo/registry/index/
+              ~/.cargo/registry/cache/
+              ~/.cargo/git/db/
+              target/
+            key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+
+        - name: Build
+          run: cargo build --all --release && strip target/release/mufbot-dc
+
+        - name: Release
+          uses: softprops/action-gh-release@v1
+          env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          with:
+            files: target/release/mufbot-dc
