@@ -80,11 +80,12 @@ pub async fn create_rollout(
                     serenity_prelude::CreateButton::new("approve")
                         .style(serenity_prelude::ButtonStyle::Success)
                         .label("Approve")
-                        .custom_id("approve"),
+                        .custom_id(format!("approve-{}", version)),
                     serenity_prelude::CreateButton::new("reject")
                         .style(serenity_prelude::ButtonStyle::Danger)
                         .label("Reject")
-                        .custom_id("reject")]
+                        .custom_id(format!("reject-{}", version)),
+                ]
         )];
 
         poise::CreateReply::default()
@@ -96,10 +97,41 @@ pub async fn create_rollout(
 
     while let Some(mci) = serenity_prelude::ComponentInteractionCollector::new(ctx.serenity_context())
         .timeout(std::time::Duration::from_secs(120))
-        .filter(move |mci| mci.data.custom_id == "approve" || mci.data.custom_id == "reject")
+        .filter(move |mci| mci.data.custom_id.starts_with("approve-") || mci.data.custom_id.starts_with("reject-"))
         .await
     {
-        if &mci.data.custom_id == "approve" {
+
+        // check permissions
+
+        if !mci.
+            user
+            .has_role(
+                ctx.http(),
+                &guild,
+                role
+            )
+            .await?
+        {
+
+            let embed = serenity_prelude::CreateEmbed::default()
+                .title("Oops!")
+                .description(format!("You don't have permission to use this interaction"))
+                .author(
+                    serenity_prelude::CreateEmbedAuthor::new(&mci.user.name)
+                        .icon_url(mci.user.avatar_url().unwrap_or_default())
+                        .url(mci.user.avatar_url().unwrap_or_default())
+                )
+                .color(0xFF0000);
+
+            let reply = serenity_prelude::CreateInteractionResponseMessage::new()
+                .embed(embed);
+            
+            mci.create_response(ctx, serenity_prelude::CreateInteractionResponse::Message(reply)).await?;
+
+            continue;
+        }
+
+        if mci.data.custom_id == format!("approve-{}", version) {
             let build_queue = ctx
                 .data()
                 .build_queue
@@ -147,7 +179,7 @@ pub async fn create_rollout(
 
             let embed = serenity_prelude::CreateEmbed::default()
                 .title("Rollout Approved")
-                .description(format!("Rollout of version {} has been approved by {}{}", version, &mci.user.name, extra))
+                .description(format!("Rollout of version {} has been approved by {}{} FUCK THIS SHIT {}", version, &mci.user.name, extra, &mci.data.custom_id))
                 .author(embed_author)
                 .color(0x00FF00);
 
@@ -155,7 +187,8 @@ pub async fn create_rollout(
                 .embed(embed);
 
             ctx.send(reply).await?;
-        } else {
+            mci.create_response(ctx, serenity_prelude::CreateInteractionResponse::Acknowledge).await?;
+        } else if mci.data.custom_id == format!("reject-{}", version) {
             let build_queue = ctx
                 .data()
                 .build_queue
@@ -198,8 +231,8 @@ pub async fn create_rollout(
                 .embed(embed);
 
             ctx.send(reply).await?;
+            mci.create_response(ctx, serenity_prelude::CreateInteractionResponse::Acknowledge).await?;
         }
-        mci.create_response(ctx, serenity_prelude::CreateInteractionResponse::Acknowledge).await?;
     }
 
     Ok(())
