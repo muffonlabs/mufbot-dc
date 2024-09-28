@@ -125,7 +125,7 @@ pub async fn create_rollout(
 
             let reply = serenity_prelude::CreateInteractionResponseMessage::new()
                 .embed(embed);
-            
+
             mci.create_response(ctx, serenity_prelude::CreateInteractionResponse::Message(reply)).await?;
 
             continue;
