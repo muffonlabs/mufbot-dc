@@ -12,36 +12,10 @@ async fn main() {
 
     dotenv().ok();
 
-    let update =
-        util::autoupdate::check_update(
-        )
-        .await;
-
-    if update.is_err() {
-
-        println!("Failed to check for updates: {:?}", update.err().unwrap());
-    } else if update.unwrap() {
-
-        println!(
-            "Attempting to update..."
-        );
-
-        let update =
-            util::autoupdate::update()
-                .await;
-
-        if update.is_err() {
-
-            println!("Failed to update: {:?}", update.err().unwrap());
-        } else {
-
-            println!(
-                "Update successful"
-            );
-        }
-
-        return;
-    }
+    // conditional compilation for only unix because auto
+    // update is not supported on non unix. for eg: windows
+    #[cfg(target_family = "unix")]
+    util::init_autoupdate();
 
     discord::initiate_bot().await;
 }

@@ -1,5 +1,10 @@
-use std::io::Write;
-use std::os::unix::fs::PermissionsExt;
+#[cfg(target_family = "unix")]
+use std::{
+    io::Write,
+    os::unix::fs::PermissionsExt
+};
+
+#[cfg(target_family = "unix")]
 
 pub async fn check_update(
 ) -> Result<bool, reqwest::Error> {
@@ -31,6 +36,8 @@ pub async fn check_update(
     Ok(latest_version
         != current_version)
 }
+
+#[cfg(target_family = "unix")]
 
 pub async fn update(
 ) -> Result<bool, reqwest::Error> {
