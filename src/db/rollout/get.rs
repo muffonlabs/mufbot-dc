@@ -94,6 +94,7 @@ pub fn get_rollout(
                     )
                     .split(",")
                     .filter(|x| {
+
                         !x.is_empty()
                     })
                     .map(|x| {
@@ -112,6 +113,7 @@ pub fn get_rollout(
                     )
                     .split(",")
                     .filter(|x| {
+
                         !x.is_empty()
                     })
                     .map(|x| {
