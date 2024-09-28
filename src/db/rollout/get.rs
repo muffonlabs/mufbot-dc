@@ -27,7 +27,7 @@ pub fn get_rollouts(
         let approvals: Vec<u64> = stmt
             .read(2)
             .unwrap_or("0".to_string())
-            .split(",")
+            .split(',')
             .filter(|x| !x.is_empty())
             .map(|x| {
 
@@ -38,7 +38,7 @@ pub fn get_rollouts(
         let rejections: Vec<u64> = stmt
             .read(3)
             .unwrap_or("0".to_string())
-            .split(",")
+            .split(',')
             .filter(|x| !x.is_empty())
             .map(|x| {
 
@@ -92,7 +92,7 @@ pub fn get_rollout(
                     .unwrap_or(
                         "0".to_string()
                     )
-                    .split(",")
+                    .split(',')
                     .filter(|x| {
 
                         !x.is_empty()
@@ -111,7 +111,7 @@ pub fn get_rollout(
                     .unwrap_or(
                         "0".to_string()
                     )
-                    .split(",")
+                    .split(',')
                     .filter(|x| {
 
                         !x.is_empty()

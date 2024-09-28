@@ -115,7 +115,7 @@ pub async fn create_rollout(
 
             let embed = serenity_prelude::CreateEmbed::default()
                 .title("Oops!")
-                .description(format!("You don't have permission to use this interaction"))
+                .description("You don't have permission to use this interaction".to_string())
                 .author(
                     serenity_prelude::CreateEmbedAuthor::new(&mci.user.name)
                         .icon_url(mci.user.avatar_url().unwrap_or_default())
