@@ -257,11 +257,13 @@ pub struct Rollout {
     pub approvals: Vec<u64>,
     pub rejections: Vec<u64>,
     pub creator: u64,
+    #[allow(dead_code)]
     pub created_at: String
 }
 
 // temporary implementation - so that there is no warning
 impl Rollout {
+    #[allow(dead_code)]
     pub fn get_created_at(
         &self
     ) -> &str {
