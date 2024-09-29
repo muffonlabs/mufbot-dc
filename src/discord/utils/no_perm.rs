@@ -11,7 +11,7 @@ pub async fn check_perms(
     let guild: serenity_prelude::PartialGuild = crate::discord::utils::get_guild(ctx).await;
 
     let role: &serenity_prelude::Role =
-        &crate::discord::utils::get_role(
+        crate::discord::utils::get_role(
             &guild
         );
 

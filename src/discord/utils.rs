@@ -17,9 +17,9 @@ pub async fn get_guild(
         .unwrap()
 }
 
-fn get_role<'a>(
-    guild: &'a serenity_prelude::PartialGuild
-) -> &'a serenity_prelude::Role {
+fn get_role(
+    guild: &serenity_prelude::PartialGuild
+) -> &serenity_prelude::Role {
 
     guild
         .roles
