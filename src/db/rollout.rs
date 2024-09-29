@@ -264,6 +264,7 @@ pub struct Rollout {
 // temporary implementation - so that there is no warning
 impl Rollout {
     #[allow(dead_code)]
+
     pub fn get_created_at(
         &self
     ) -> &str {
