@@ -15,7 +15,7 @@ async fn main() {
     // conditional compilation for only unix because auto
     // update is not supported on non unix. for eg: windows
     #[cfg(target_family = "unix")]
-    util::init_autoupdate();
+    util::init_autoupdate().await;
 
     discord::initiate_bot().await;
 }
