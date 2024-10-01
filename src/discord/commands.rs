@@ -1,5 +1,6 @@
 pub mod age;
 pub mod buildlist;
+pub mod clear_rollouts;
 pub mod restart;
 pub mod rollout;
 pub mod shutdown;

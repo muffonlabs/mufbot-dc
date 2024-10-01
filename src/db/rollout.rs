@@ -249,6 +249,20 @@ impl BuildQueue {
             Ok(true)
         }
     }
+
+    pub fn clear_queue(
+        &self
+    ) -> Result<
+        (),
+        Box<dyn std::error::Error>
+    > {
+
+        self.conn.execute(
+            "DELETE FROM rollout"
+        )?;
+
+        Ok(())
+    }
 }
 
 pub struct Rollout {
