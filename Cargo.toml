@@ -1,6 +1,6 @@
 [package]
 name = "mufbot-dc"
-version = "0.1.6"
+version = "0.1.7"
 edition = "2021"
 license = "MIT"
 authors = ["gamersi <hello@gamersi.at>", "xyloflake <xyloflake@gmail.com>"]
