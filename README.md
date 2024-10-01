@@ -1,4 +1,4 @@
-![21be4ecc43554d4b45913414a8595b17](https://github.com/user-attachments/assets/e73eaf48-26ea-4406-a2c3-81e7381fd246)
+![mufbot banner](https://github.com/user-attachments/assets/7eca9013-276b-4d9b-b608-a976be8dce56)
 
 # Introducing, mufbot.
 
