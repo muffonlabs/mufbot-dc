@@ -943,7 +943,7 @@ dependencies = [
 
 [[package]]
 name = "mufbot-dc"
-version = "0.1.7"
+version = "0.1.8"
 dependencies = [
  "chrono",
  "dotenv",

@@ -39,6 +39,7 @@ pub async fn initiate_bot() {
                 commands::restart::restart(),
                 commands::version::version(),
                 commands::clear_rollouts::clear_rollouts(),
+                commands::reboot_server::reboot_server(),
             ],
             ..Default::default()
         })
