@@ -67,12 +67,9 @@ pub async fn create_rollout(
     ctx.send(response).await?;
 
     while let Some(component_interaction) = serenity_prelude::ComponentInteractionCollector::new(ctx.serenity_context())
-        .timeout(std::time::Duration::from_secs(120))
         .filter(move |mci| mci.data.custom_id.starts_with("approve-") || mci.data.custom_id.starts_with("reject-"))
         .await
     {
-
-        // check permissions
 
         crate::discord::utils::no_perm::check_and_send_no_perm(ctx, &component_interaction.user).await?;
 
@@ -99,7 +96,7 @@ pub async fn create_rollout(
                     serenity_prelude::CreateInteractionResponse::Acknowledge
                 ).await?;
 
-            return Ok(());
+            continue;
         }
 
         if component_interaction.data.custom_id == format!("approve-{}", version) {
