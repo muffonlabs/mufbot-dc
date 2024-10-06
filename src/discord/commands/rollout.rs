@@ -64,16 +64,28 @@ pub async fn create_rollout(
 
     ctx.send(response).await?;
 
-    while let Some(component_interaction) = serenity_prelude::ComponentInteractionCollector::new(ctx.serenity_context())
-        .filter(move |mci| mci.data.custom_id.starts_with("approve-") || mci.data.custom_id.starts_with("reject-"))
+    while let Some(component_interaction) = 
+        serenity_prelude::ComponentInteractionCollector::new(ctx.serenity_context())
+        .filter(
+            move |mci| 
+            mci.data.custom_id.starts_with("approve-") ||
+            mci.data.custom_id.starts_with("reject-")
+        )
         .await
     {
 
-        crate::discord::utils::no_perm::check_and_send_no_perm(ctx, &component_interaction.user).await?;
+        crate::discord::utils::no_perm::check_and_send_no_perm(
+            ctx,
+            &component_interaction.user
+        ).await?;
 
         // If interactor and creator are same, disregard it because
         // author can't approve or deny their own rollout
-        if component_interaction.user.id == ctx.author().id && component_interaction.data.custom_id.split("-").collect::<Vec<&str>>()[1] == version {
+        // second conditional compares the interaction id
+        // with the version of the context
+        if component_interaction.user.id == ctx.author().id &&
+        component_interaction.data.custom_id.split("-")
+        .collect::<Vec<&str>>()[1] == version {
             ctx
             .send(
                 poise::CreateReply::default()
@@ -119,14 +131,20 @@ pub async fn create_rollout(
             if !success {
                 let embed = serenity_prelude::CreateEmbed::default()
                     .title("Invalid action")
-                    .description("There was an error approving the rollout. This version may have already been approved.")
+                    .description(
+                        "There was an error approving the rollout. \
+                        This version may have already been approved."
+                    )
                     .color(0xFF0000);
 
                 let reply = poise::CreateReply::default()
                     .embed(embed);
 
                 ctx.send(reply).await?;
-                component_interaction.create_response(ctx, serenity_prelude::CreateInteractionResponse::Acknowledge).await?;
+                component_interaction.create_response(
+                    ctx,
+                    serenity_prelude::CreateInteractionResponse::Acknowledge
+                ).await?;
                 continue;
             }
 
@@ -136,16 +154,27 @@ pub async fn create_rollout(
                 let _ = crate::github::start_rollout(&version).await;
                 ". The rollout has been started."
             } else {
-                ". The rollout has not been started because it has not been approved by enough people."
+                ". The rollout has not been started because it \
+                has not been approved by enough people."
             };
 
-            let embed_author = serenity_prelude::CreateEmbedAuthor::new(&component_interaction.user.name)
+            let embed_author = 
+                serenity_prelude::CreateEmbedAuthor::new(&component_interaction.user.name)
                 .icon_url(component_interaction.user.avatar_url().unwrap_or_default())
                 .url(component_interaction.user.avatar_url().unwrap_or_default());
 
-            let embed = serenity_prelude::CreateEmbed::default()
+            let embed = 
+                serenity_prelude::CreateEmbed::default()
                 .title("Rollout Approved")
-                .description(format!("Rollout of version {} has been approved by {}{}. ID: {}", version, &component_interaction.user.name, extra, &component_interaction.data.custom_id))
+                .description(
+                    format!(
+                        "Rollout of version {} has been approved by {}{}. ID: {}",
+                        version,
+                        &component_interaction.user.name,
+                        extra,
+                        &component_interaction.data.custom_id
+                    )
+                )
                 .author(embed_author)
                 .color(0x00FF00);
 
@@ -153,7 +182,10 @@ pub async fn create_rollout(
                 .embed(embed);
 
             ctx.send(reply).await?;
-            component_interaction.create_response(ctx, serenity_prelude::CreateInteractionResponse::Acknowledge).await?;
+            component_interaction.create_response(
+                ctx,
+                serenity_prelude::CreateInteractionResponse::Acknowledge
+            ).await?;
         } else if component_interaction.data.custom_id == format!("reject-{}", version) {
             let build_queue = ctx
                 .data()
@@ -172,24 +204,37 @@ pub async fn create_rollout(
             if !success {
                 let embed = serenity_prelude::CreateEmbed::default()
                     .title("Invalid action")
-                    .description("There was an error rejecting the rollout. This version may have already been rejected.")
+                    .description(
+                        "There was an error rejecting the rollout.\
+                        This version may have already been rejected."
+                    )
                     .color(0xFF0000);
 
                 let reply = poise::CreateReply::default()
                     .embed(embed);
 
                 ctx.send(reply).await?;
-                component_interaction.create_response(ctx, serenity_prelude::CreateInteractionResponse::Acknowledge).await?;
+                component_interaction.create_response(
+                    ctx,
+                    serenity_prelude::CreateInteractionResponse::Acknowledge
+                ).await?;
                 continue;
             }
 
-            let embed_author = serenity_prelude::CreateEmbedAuthor::new(&component_interaction.user.name)
+            let embed_author = 
+                serenity_prelude::CreateEmbedAuthor::new(&component_interaction.user.name)
                 .icon_url(component_interaction.user.avatar_url().unwrap_or_default())
                 .url(component_interaction.user.avatar_url().unwrap_or_default());
 
             let embed = serenity_prelude::CreateEmbed::default()
                 .title("Rollout Rejected")
-                .description(format!("Rollout of version {} has been rejected by {}. Cancelling rollout", version, &component_interaction.user.name))
+                .description(
+                    format!(
+                        "Rollout of version {} has been rejected by {}. Cancelling rollout",
+                        version,
+                        &component_interaction.user.name
+                    )
+                )
                 .author(embed_author)
                 .color(0xFF0000);
 
@@ -197,7 +242,10 @@ pub async fn create_rollout(
                 .embed(embed);
 
             ctx.send(reply).await?;
-            component_interaction.create_response(ctx, serenity_prelude::CreateInteractionResponse::Acknowledge).await?;
+            component_interaction.create_response(
+                ctx,
+                serenity_prelude::CreateInteractionResponse::Acknowledge
+            ).await?;
         }
     }
 

@@ -7,7 +7,8 @@ pub async fn check_perms(
     ctx: crate::discord::commands::Context<'_>,
     user: &poise::serenity_prelude::User
 ) -> bool {
-    let guild: serenity_prelude::PartialGuild = crate::discord::utils::get_guild(ctx).await;
+    let guild: serenity_prelude::PartialGuild = 
+        crate::discord::utils::get_guild(ctx).await;
 
     let role: &serenity_prelude::Role =
         crate::discord::utils::get_role(
@@ -42,7 +43,9 @@ pub async fn send_no_perm(
             .embed(
                 poise::serenity_prelude::CreateEmbed::new()
                 .title("Permission denied")
-                .description("You are not allowed to perform this action.")
+                .description(
+                    "You are not allowed to perform this action."
+                )
                 .color(0xFF0000)
             )
             .ephemeral(true)
