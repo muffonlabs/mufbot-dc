@@ -1,0 +1,23 @@
+#!/bin/sh
+
+echo "Running pre-push hook..."
+
+# Run cargo check
+if ! cargo check; then
+    echo "cargo check failed. Please fix the issues before pushing."
+    exit 1
+fi
+
+# Run cargo clippy
+if ! cargo clippy --all-targets --all-features -- -D warnings; then
+    echo "cargo clippy found issues. Please fix the warnings before pushing."
+    exit 1
+fi
+
+# Run cargo +nightly fmt
+if ! cargo +nightly fmt -- --check; then
+    echo "Rust formatting check failed. Please run 'cargo +nightly fmt' to fix."
+    exit 1
+fi
+
+echo "All checks passed. Proceeding with push."

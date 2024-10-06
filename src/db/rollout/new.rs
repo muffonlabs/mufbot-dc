@@ -6,7 +6,6 @@ pub fn create(
     Connection,
     Box<dyn std::error::Error>
 > {
-
     let conn =
         Connection::open(db_path)?;
 

@@ -5,6 +5,9 @@ edition = "2021"
 license = "MIT"
 authors = ["gamersi <hello@gamersi.at>", "xyloflake <xyloflake@gmail.com>"]
 
+[dev-dependencies]
+husky-rs = "0.1.0"
+
 [dependencies]
 chrono = "0.4.38"
 dotenv = "0.15.0"

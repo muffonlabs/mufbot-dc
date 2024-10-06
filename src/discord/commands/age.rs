@@ -15,7 +15,6 @@ pub async fn age(
     (),
     crate::discord::commands::Error
 > {
-
     let u =
         user.as_ref().unwrap_or_else(
             || ctx.author()

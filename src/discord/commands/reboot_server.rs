@@ -13,7 +13,6 @@ pub async fn reboot_server(
     (),
     crate::discord::commands::Error
 > {
-
     let guild = ctx
         .http()
         .get_guild(
@@ -43,7 +42,6 @@ pub async fn reboot_server(
         )
         .await?
     {
-
         ctx.say("You don't have permission to use this command")
             .await?;
 
@@ -66,12 +64,11 @@ pub async fn reboot_server(
 
     ctx.send(reply).await?;
 
-    let _ =
-        std::process::Command::new(
-            "reboot"
-        )
-        .output()
-        .expect("failed to reboot");
+    let _ = std::process::Command::new(
+        "reboot"
+    )
+    .output()
+    .expect("failed to reboot");
 
     Ok(())
 }

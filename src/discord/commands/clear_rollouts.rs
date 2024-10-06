@@ -9,7 +9,6 @@ pub async fn clear_rollouts(
     (),
     crate::discord::commands::Error
 > {
-
     // Auth check
     let guild_id = std::env::var(
         "MUFFON_GUILD_ID"
@@ -42,7 +41,6 @@ pub async fn clear_rollouts(
         )
         .await?
     {
-
         ctx.say("You don't have permission to use this command")
             .await?;
 

@@ -15,7 +15,6 @@ impl BuildQueue {
         Self,
         Box<dyn std::error::Error>
     > {
-
         let conn =
             new::create(db_path)?;
 
@@ -32,7 +31,6 @@ impl BuildQueue {
         (),
         Box<dyn std::error::Error>
     > {
-
         let mut stmt = self
             .conn
             .prepare(queue::SQL_CMD)?;
@@ -46,7 +44,6 @@ impl BuildQueue {
     pub fn get_builds(
         &self
     ) -> Vec<String> {
-
         let mut stmt = self
             .conn
             .prepare(get::SQL_CMD)
@@ -59,7 +56,6 @@ impl BuildQueue {
         &self,
         version: &str
     ) -> Option<Rollout> {
-
         let mut stmt = self
             .conn
             .prepare("SELECT * FROM rollout WHERE version = ?")
@@ -82,7 +78,6 @@ impl BuildQueue {
         (),
         Box<dyn std::error::Error>
     > {
-
         let approval_str = rollout
             .approvals
             .iter()
@@ -134,18 +129,15 @@ impl BuildQueue {
         bool,
         Box<dyn std::error::Error>
     > {
-
         let mut rollout = self
             .get_rollout(version)
             .expect("build not found");
 
         if rollout.status != "pending" {
-
             return Ok(false);
         }
 
         if rollout.creator == user_id {
-
             return Ok(false);
         }
 
@@ -153,7 +145,6 @@ impl BuildQueue {
             .rejections
             .contains(&user_id)
         {
-
             return Ok(false);
         }
 
@@ -161,10 +152,8 @@ impl BuildQueue {
             .approvals
             .contains(&user_id)
         {
-
             Ok(false)
         } else {
-
             rollout
                 .approvals
                 .push(user_id);
@@ -175,7 +164,6 @@ impl BuildQueue {
                     .rejections
                     .is_empty()
             {
-
                 rollout.status =
                     "approved"
                         .to_string();
@@ -197,18 +185,15 @@ impl BuildQueue {
         bool,
         Box<dyn std::error::Error>
     > {
-
         let mut rollout = self
             .get_rollout(version)
             .expect("build not found");
 
         if rollout.status != "pending" {
-
             return Ok(false);
         }
 
         if rollout.creator == user_id {
-
             return Ok(false);
         }
 
@@ -216,7 +201,6 @@ impl BuildQueue {
             .approvals
             .contains(&user_id)
         {
-
             return Ok(false);
         }
 
@@ -224,10 +208,8 @@ impl BuildQueue {
             .rejections
             .contains(&user_id)
         {
-
             Ok(false)
         } else {
-
             rollout
                 .rejections
                 .push(user_id);
@@ -236,7 +218,6 @@ impl BuildQueue {
                 .rejections
                 .is_empty()
             {
-
                 rollout.status =
                     "rejected"
                         .to_string();
@@ -256,7 +237,6 @@ impl BuildQueue {
         (),
         Box<dyn std::error::Error>
     > {
-
         self.conn.execute(
             "DELETE FROM rollout"
         )?;
@@ -278,11 +258,9 @@ pub struct Rollout {
 // temporary implementation - so that there is no warning
 impl Rollout {
     #[allow(dead_code)]
-
     pub fn get_created_at(
         &self
     ) -> &str {
-
         &self.created_at
     }
 }

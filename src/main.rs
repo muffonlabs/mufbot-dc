@@ -9,7 +9,6 @@ use dotenv::dotenv;
 #[tokio::main]
 
 async fn main() {
-
     dotenv().ok();
 
     // conditional compilation for only unix because auto

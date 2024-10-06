@@ -13,7 +13,6 @@ pub async fn create_rollout(
     (),
     crate::discord::commands::Error
 > {
-
     if !crate::discord::utils::no_perm::check_and_send_no_perm(
         ctx,
         ctx.author()
@@ -40,7 +39,6 @@ pub async fn create_rollout(
     drop(build_queue);
 
     let response = {
-
         let embed = serenity_prelude::CreateEmbed::default()
             .title("Rollout Queued")
             .description(format!("Rollout of version {} has been queued", version));

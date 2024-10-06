@@ -13,7 +13,6 @@ pub async fn version(
     (),
     crate::discord::commands::Error
 > {
-
     let version =
         env!("CARGO_PKG_VERSION");
 

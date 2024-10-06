@@ -14,7 +14,6 @@ fn get_build_queue() -> Arc<
         crate::db::rollout::BuildQueue
     >
 > {
-
     Arc::new(Mutex::new(
         crate::db::rollout::BuildQueue::new("muffon.db")
             .expect("Failed to create BuildQueue"),
@@ -22,7 +21,6 @@ fn get_build_queue() -> Arc<
 }
 
 pub async fn initiate_bot() {
-
     let build_queue: Arc<Mutex<crate::db::rollout::BuildQueue>> = get_build_queue();
 
     println!("starting client");

@@ -10,7 +10,6 @@ pub fn default_binds(
     (),
     Box<dyn std::error::Error>
 > {
-
     stmt.bind((1, version))?;
 
     // pending at the time of creation

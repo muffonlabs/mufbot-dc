@@ -3,7 +3,6 @@ use serde_json::Value;
 pub async fn start_rollout(
     version: &str
 ) -> Result<(), reqwest::Error> {
-
     let params_str = format!(
         r#"{{
             "ref": "main",
@@ -30,7 +29,6 @@ pub async fn start_rollout(
         .send().await?;
 
     if response.status().is_success() {
-
         return Ok(());
     }
 

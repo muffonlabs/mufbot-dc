@@ -9,7 +9,6 @@ pub async fn restart(
     (),
     crate::discord::commands::Error
 > {
-
     let guild = ctx
         .http()
         .get_guild(
@@ -39,7 +38,6 @@ pub async fn restart(
         )
         .await?
     {
-
         ctx.say("You don't have permission to use this command")
             .await?;
 

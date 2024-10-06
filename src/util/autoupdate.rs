@@ -5,10 +5,8 @@ use std::{
 };
 
 #[cfg(target_family = "unix")]
-
 pub async fn check_update(
 ) -> Result<bool, reqwest::Error> {
-
     let client = reqwest::Client::new();
 
     let response = client.get("https://api.github.com/repos/muffonlabs/mufbot-dc/releases/latest")
@@ -29,7 +27,6 @@ pub async fn check_update(
 
     if latest_version != current_version
     {
-
         println!("Update available! Current version: {}, Latest version: {}", current_version, latest_version);
     }
 
@@ -38,10 +35,8 @@ pub async fn check_update(
 }
 
 #[cfg(target_family = "unix")]
-
 pub async fn update(
 ) -> Result<bool, reqwest::Error> {
-
     let client = reqwest::Client::new();
 
     let response = client.get("https://api.github.com/repos/muffonlabs/mufbot-dc/releases/latest")
@@ -57,7 +52,6 @@ pub async fn update(
         .as_str();
 
     if download_url.is_none() {
-
         println!("Failed to get download URL");
 
         return Ok(false);
@@ -86,7 +80,6 @@ pub async fn update(
         std::fs::remove_file(path);
 
     if rm_res.is_err() {
-
         println!("Failed to remove old binary: {:?}", rm_res.err().unwrap());
     }
 
@@ -94,19 +87,16 @@ pub async fn update(
         std::fs::File::create(path);
 
     if file.is_err() {
-
         println!("Failed to create new binary: {:?}", file.err().unwrap());
 
         Ok(false)
     } else {
-
         let mut file = file.unwrap();
 
         let write_res =
             file.write_all(&bytes);
 
         if write_res.is_err() {
-
             println!("Failed to write to new binary: {:?}", write_res.err().unwrap());
 
             return Ok(false);
@@ -124,7 +114,6 @@ pub async fn update(
             file.set_permissions(perms);
 
         if perm_res.is_err() {
-
             println!("Failed to set permissions: {:?}", perm_res.err().unwrap());
 
             return Ok(false);
@@ -136,7 +125,6 @@ pub async fn update(
             .output();
 
         if cmd_res.is_err() {
-
             println!("Failed to restart service: {:?}", cmd_res.err().unwrap());
 
             return Ok(false);

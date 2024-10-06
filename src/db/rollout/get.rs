@@ -8,13 +8,11 @@ pub const SQL_CMD: &str =
 pub fn get_rollouts(
     stmt: &mut Statement<'_>
 ) -> Vec<String> {
-
     let mut rollouts = vec![];
 
     while let Ok(State::Row) =
         stmt.next()
     {
-
         let version: String = stmt
             .read(0)
             .expect("failed to read version");
@@ -30,7 +28,6 @@ pub fn get_rollouts(
             .split(',')
             .filter(|x| !x.is_empty())
             .map(|x| {
-
                 x.parse().unwrap_or(0)
             })
             .collect();
@@ -41,7 +38,6 @@ pub fn get_rollouts(
             .split(',')
             .filter(|x| !x.is_empty())
             .map(|x| {
-
                 x.parse().unwrap_or(0)
             })
             .collect();
@@ -72,17 +68,14 @@ pub fn get_rollout(
     stmt: &mut Statement<'_>,
     version: &str
 ) -> Option<Rollout> {
-
     while let Ok(State::Row) =
         stmt.next()
     {
-
         let version_db: String = stmt
             .read(0)
             .expect("failed to read version");
 
         if version_db == version {
-
             let status: String = stmt
                 .read(1)
                 .expect("failed to read status");
@@ -94,11 +87,9 @@ pub fn get_rollout(
                     )
                     .split(',')
                     .filter(|x| {
-
                         !x.is_empty()
                     })
                     .map(|x| {
-
                         x.parse()
                             .unwrap_or(
                                 0
@@ -113,11 +104,9 @@ pub fn get_rollout(
                     )
                     .split(',')
                     .filter(|x| {
-
                         !x.is_empty()
                     })
                     .map(|x| {
-
                         x.parse()
                             .unwrap_or(
                                 0

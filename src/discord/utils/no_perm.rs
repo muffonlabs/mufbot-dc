@@ -7,7 +7,6 @@ pub async fn check_perms(
     ctx: crate::discord::commands::Context<'_>,
     user: &poise::serenity_prelude::User
 ) -> bool {
-
     let guild: serenity_prelude::PartialGuild = crate::discord::utils::get_guild(ctx).await;
 
     let role: &serenity_prelude::Role =
@@ -24,7 +23,6 @@ pub async fn check_perms(
         .await
         .unwrap()
     {
-
         return false;
     }
 
@@ -38,7 +36,6 @@ pub async fn send_no_perm(
     (),
     crate::discord::commands::Error
 > {
-
     ctx
         .send(
             poise::CreateReply::default()
@@ -61,9 +58,7 @@ pub async fn check_and_send_no_perm(
     bool,
     crate::discord::commands::Error
 > {
-
     if !check_perms(ctx, user).await {
-
         send_no_perm(ctx).await?;
 
         return Ok(false);

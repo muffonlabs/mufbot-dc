@@ -9,7 +9,6 @@ pub async fn buildlist(
     (),
     crate::discord::commands::Error
 > {
-
     // Auth check
     let guild_id = std::env::var(
         "MUFFON_GUILD_ID"
@@ -42,7 +41,6 @@ pub async fn buildlist(
         )
         .await?
     {
-
         ctx.say("You don't have permission to use this command")
             .await?;
 
@@ -63,7 +61,6 @@ pub async fn buildlist(
     for build in
         build_queue.get_builds()
     {
-
         response.push_str(&build);
 
         response.push('\n');
