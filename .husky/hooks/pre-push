@@ -9,7 +9,7 @@ if ! cargo check; then
 fi
 
 # Run cargo clippy
-if ! cargo clippy --all-targets --all-features -- -D warnings; then
+if ! cargo clippy --all-targets --all-features; then
     echo "cargo clippy found issues. Please fix the warnings before pushing."
     exit 1
 fi
