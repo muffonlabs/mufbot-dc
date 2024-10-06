@@ -75,7 +75,7 @@ pub async fn create_rollout(
 
         // If interactor and creator are same, disregard it because
         // author can't approve or deny their own rollout
-        if component_interaction.user.id == ctx.author().id {
+        if component_interaction.user.id == ctx.author().id && component_interaction.data.custom_id.split("-").collect::<Vec<&str>>()[1] == version {
             ctx
             .send(
                 poise::CreateReply::default()
