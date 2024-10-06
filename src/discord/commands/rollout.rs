@@ -64,10 +64,10 @@ pub async fn create_rollout(
 
     ctx.send(response).await?;
 
-    while let Some(component_interaction) = 
+    while let Some(component_interaction) =
         serenity_prelude::ComponentInteractionCollector::new(ctx.serenity_context())
         .filter(
-            move |mci| 
+            move |mci|
             mci.data.custom_id.starts_with("approve-") ||
             mci.data.custom_id.starts_with("reject-")
         )
@@ -158,12 +158,12 @@ pub async fn create_rollout(
                 has not been approved by enough people."
             };
 
-            let embed_author = 
+            let embed_author =
                 serenity_prelude::CreateEmbedAuthor::new(&component_interaction.user.name)
                 .icon_url(component_interaction.user.avatar_url().unwrap_or_default())
                 .url(component_interaction.user.avatar_url().unwrap_or_default());
 
-            let embed = 
+            let embed =
                 serenity_prelude::CreateEmbed::default()
                 .title("Rollout Approved")
                 .description(
@@ -221,7 +221,7 @@ pub async fn create_rollout(
                 continue;
             }
 
-            let embed_author = 
+            let embed_author =
                 serenity_prelude::CreateEmbedAuthor::new(&component_interaction.user.name)
                 .icon_url(component_interaction.user.avatar_url().unwrap_or_default())
                 .url(component_interaction.user.avatar_url().unwrap_or_default());
