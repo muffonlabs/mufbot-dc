@@ -84,7 +84,7 @@ pub async fn create_rollout(
         // second conditional compares the interaction id
         // with the version of the context
         if component_interaction.user.id == ctx.author().id &&
-        component_interaction.data.custom_id.split("-")
+        component_interaction.data.custom_id.split('-')
         .collect::<Vec<&str>>()[1] == version {
             ctx
             .send(
